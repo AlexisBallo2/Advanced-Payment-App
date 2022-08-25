@@ -13,13 +13,9 @@ export default function Home() {
   const [groupName, setGroupName] = useState("");
   const [popupShow, setpopupShow] = useState(true);
   var [inc, setInc] = useState(2);
-  const [groups, setGroups] = useState([{ id: 0 }]);
+  const [groups, setGroups] = useState([]);
   const [fullData, setfullData] = useState([
     [
-      {
-        name: "alexis",
-        days: "10",
-      },
     ],
   ]);
 
@@ -130,21 +126,27 @@ export default function Home() {
     console.log("groups type before update: ", groups);
     var tempGroup = { id: groups.length };
     var tempGroupsArray = groups;
-    // tempGroupsArray.push(tempGroup)
-    //setGroups(tempGroupsArray);
-    setGroups((current) => [...current, tempGroup]);
+    tempGroupsArray.push(tempGroup)
+    setGroups(tempGroupsArray);
 
-    console.log("did we add a new group: groupsList: ", groups);
+;
     var newGroupToAdd = [
-      // { name: "", days: "" },
+      { name: "", days: "" },
     ];
+    var tempFullData = fullData;
+    tempFullData.push(newGroupToAdd)
+    setfullData(tempFullData)
     // fullData.push(newGroupToAdd)
     //setfullData(fullData)
-    setfullData((current) => [...current, newGroupToAdd]);
+
     var tempCostData = costData;
-    // tempCostData.push(0)
-    // setCostData(tempCostData)
-    setCostData((current) => [...current, 0]);
+    tempCostData.push(0)
+    setCostData(tempCostData)
+
+    setCostData((current) => [...current]);
+    setfullData((current) => [...current]);
+    setGroups((current) => [...current])
+
     console.log(
       "adding a new group to fullData: fulldata: ",
       fullData,
@@ -167,11 +169,12 @@ export default function Home() {
     var tempDataArray = fullData;
     fullData.pop();
     setfullData(tempDataArray);
-    console.log(
-      "removed. New fulldata array and cost array:",
-      fullData,
-      costData
-    );
+
+
+    setCostData((current) => [...current]);
+    setfullData((current) => [...current]);
+    setGroups((current) => [...current])
+
   };
 
   const updaterFunction = (data) => {
@@ -215,7 +218,7 @@ export default function Home() {
           ? ""
           : data.map((dat) => (
               <p key={dat}>
-                Group {parseInt(dat[0]) + 1} pays Group {parseInt(dat[1]) + 1}:
+                {fullData[parseInt(dat[0])][0].name}'s group pays {fullData[parseInt(dat[1])][0].name}'s group:
                 ${dat[2]}
               </p>
             ))}

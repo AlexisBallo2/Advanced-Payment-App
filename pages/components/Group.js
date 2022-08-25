@@ -14,7 +14,12 @@ export default function Group(props) {
     var currentItems = [];
 
     console.log("recieved payment, ", props.payment);
-    setCost(props.payment);
+    if(props.payment == undefined){
+      setCost(0)
+    } else {
+      setCost(props.payment);
+
+    }
 
     for (var i = 0; i < props.data.length; i++) {
       var tempObj = { id: i };
