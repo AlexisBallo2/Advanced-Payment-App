@@ -58,7 +58,13 @@ function makeCalculation(days, money) {
   var dailyCost = Math.round(totalCost / totalDays);
   var fam_cost_array = [];
 
+  console.log("fam days array:", fam_days_array)
+
   for (var i = 0; i < fam_days_array.length; i++) {
+    if(fam_cost_array[i] == undefined){
+      fam_cost_array[i] = 0;
+    }
+    console.log(" fam_cost_array[i]", fam_cost_array[i], fam_days_array[i], dailyCost, paid_array[i])
     //console.log("fam_days_array")
     fam_cost_array[i] = -(fam_days_array[i] * dailyCost) + paid_array[i];
   }

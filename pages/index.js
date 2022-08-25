@@ -112,6 +112,7 @@ export default function Home() {
   const updateDB = () => {
     console.log("states data", fullData);
     console.log("states data", costData);
+    console.log("saving to db with id", groupName);
     fetch("/api/setDBData", {
       method: "POST",
       headers: {
@@ -135,8 +136,7 @@ export default function Home() {
 
     console.log("did we add a new group: groupsList: ", groups);
     var newGroupToAdd = [
-      { name: "", days: "" },
-      { name: "", days: "" },
+      // { name: "", days: "" },
     ];
     // fullData.push(newGroupToAdd)
     //setfullData(fullData)

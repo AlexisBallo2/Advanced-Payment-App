@@ -10,36 +10,78 @@ export default function Group(props) {
   var [items, setItems] = useState([]);
   var [cost, setCost] = useState(0);
   useEffect(() => {
+    console.log("in usestate, ", props)
     var currentItems = [];
+
     console.log("recieved payment, ", props.payment);
     setCost(props.payment);
-    console.log("current group and length: ", items, items.length);
+
     for (var i = 0; i < props.data.length; i++) {
       var tempObj = { id: i };
       currentItems.push(tempObj);
     }
     setItems(currentItems);
-    console.log("new items and length: ", items, items.length);
+    console.log("Entries items and length: ", items, items.length);
 
     return () => {};
-  }, [props.data]);
+  }, []);
 
   var [content, setContent] = useState(props.data);
 
   //add person to group
-  const addEntry = (obj) => {
-    setItems((current) => [...current, { id: current.length }]);
-    console.log("items", items);
-    console.log("content", content);
+  const addEntry = () => {
+    // var tempItems = items
+    var tempItem = { id: items.length }
+    var tempItems = items
+    tempItems.push(tempItem);
+    setItems(tempItems)
+
+
+    var tempContentItem = { name: "", days: 0 }
+    var tempContent = content
+    tempContent.push(tempContentItem)
+    setContent(tempContent)
+
+
+    //setItems((current) => [...current, tempItem]);
+   // setContent((current) => [...current, tempContent]);
+    // console.log("items", items);
+    // console.log("content", content);
+    setItems((current) => [...current])
+    setContent((current) => [...current])
+    console.log("changed entries,", items)
+    console.log("changed content, ", content)
   };
 
   //remove person from group
   const removeEntry = () => {
-    setItems((current) =>
-      current.filter((obj) => {
-        return obj.id !== current.length - 1;
-      })
-    );
+    console.log("in removeEntry, with ", items)
+
+    var currentItems = items
+    items.pop()
+    setItems(items)
+
+    var currentContent = content
+    currentContent.pop()
+    setContent(currentContent)
+
+   //  var tempItems = items;
+   //  tempItems.pop();
+   //  setItems(tempItems);
+
+   //  var tempContent = content;
+   //  tempContent.pop();
+   //  setContent(tempContent);
+   //  // setItems((current) =>
+   //  //   current.filter((obj) => {
+   //  //     return obj.id !== current.length - 1;
+   //  //   })
+   // // );
+  setItems((current) => [...current])
+  setContent((current) => [...current])
+  console.log("changed entries,", items)
+  console.log("changed content, ", content)
+
   };
 
   //update current groups people
@@ -79,13 +121,11 @@ export default function Group(props) {
         {items.map((item) => {
           return (
             <div key={item.id}>
-              <div>
                 <Entry
                   updater={groupsUpdaterFunction}
                   number={item.id}
                   data={props.data[item.id]}
                 />
-              </div>
             </div>
           );
         })}
