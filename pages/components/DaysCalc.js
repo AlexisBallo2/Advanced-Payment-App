@@ -217,7 +217,7 @@ export default function DaysCalc(props) {
           ? ""
           : data.map((dat) => (
               <p key={dat}>
-                {fullData[parseInt(dat[0])][0].name}'s group pays {fullData[parseInt(dat[1])][0].name}'s group:
+                {fullData[parseInt(dat[0])][0].name}&apos;s group pays {fullData[parseInt(dat[1])][0].name}&apos;s group:
                 ${dat[2]}
               </p>
             ))}
