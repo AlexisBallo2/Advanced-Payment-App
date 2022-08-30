@@ -20,6 +20,14 @@ export default function DaysCalc(props) {
   ]);
 
   useEffect(() => {
+    console.log("use effect")
+    if(props.changeId == 1) {
+      setpopupShow(1)
+      props.setChangeId(0)
+    }
+  },[props])
+
+  useEffect(() => {
     console.log("data from state", fullData);
     fetch("/api/daysCalc/getDBData", {
       method: "POST",
@@ -110,7 +118,7 @@ export default function DaysCalc(props) {
     console.log("states data", fullData);
     console.log("states data", costData);
     console.log("saving to db with id", groupName);
-    fetch("/api/setDBData", {
+    fetch("/api/daysCalc/setDBData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

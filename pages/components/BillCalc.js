@@ -25,6 +25,15 @@ export default function BillCalc(props) {
   ]);
 
   useEffect(() => {
+    console.log("use effect")
+    if(props.changeId == 1) {
+      setpopupShow(1)
+      props.setChangeId(0)
+    }
+  },[props])
+
+
+  useEffect(() => {
     console.log("data from state", fullData);
     fetch("/api/billCalc/getDBData", {
       method: "POST",
