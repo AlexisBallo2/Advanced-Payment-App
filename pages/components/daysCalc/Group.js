@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Entry from "./Entry";
-import styles from "../../styles/Group.module.css";
+import styles from "../../../styles/Group.module.css";
 
 var itemCounter = 3;
 

@@ -38,6 +38,10 @@
   text-align: center;
 }
 
+.paymentCalcHeader p {
+  font-size: 15px;
+}
+
 .groupHolder {
   margin: 30px;
   display: flex;
