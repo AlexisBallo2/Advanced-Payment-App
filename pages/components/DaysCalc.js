@@ -143,7 +143,7 @@ export default function DaysCalc(props) {
     var tempCostData = costData;
     tempCostData.push(0)
     setCostData(tempCostData)
-
+    
     setCostData((current) => [...current]);
     setfullData((current) => [...current]);
     setGroups((current) => [...current])

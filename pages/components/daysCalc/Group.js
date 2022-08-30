@@ -14,7 +14,7 @@ export default function Group(props) {
     var currentItems = [];
 
     console.log("recieved payment, ", props.payment);
-    if(props.payment == undefined){
+    if(isNaN(props.payement)){
       setCost(0)
     } else {
       setCost(props.payment);
