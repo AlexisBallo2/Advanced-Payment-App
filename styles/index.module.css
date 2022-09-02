@@ -80,3 +80,28 @@
   box-shadow: none;
   padding: 5px
 }
+
+.selectionHolder {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectionHolder button:first-child {
+  width: 100px;
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid black;
+  border-radius: 10px 0px 0px 10px;
+  border-right: 0.5px
+}
+
+.selectionHolder button:last-child {
+  width: 100px;
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid black;
+  border-radius: 0px 10px 10px 0px;
+  border-left: 0.5px;
+}

@@ -26,7 +26,11 @@ export default function Home() {
     <div className={styles.page}>
       <div className={styles.paymentCalcHeader}>Payment Calculator 
       <p>{version}, ID: {id},  <button onClick = {() => changeIdFunction()}> change ID</button></p> 
-      <button onClick={() => changeApp()} className={styles.changeApp}>Change app</button>
+      {/* <button onClick={() => changeApp()} className={styles.changeApp}>Change app</button> */}
+      <div className = {styles.selectionHolder}>
+        <button onClick={() => changeApp()} className={styles.changeAppButton} style = {{backgroundColor: version == "Bill Calculator" ? "green": "white"}}>Bill <br/> Calculator</button> 
+        <button onClick={() => changeApp()} className={styles.changeAppButton} style = {{backgroundColor: version == "Day Payment Calculator" ? "green": "white"}} >Day <br/> Calculator</button>
+      </div>
 
       </div>
       </div>
