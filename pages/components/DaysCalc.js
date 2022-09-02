@@ -8,6 +8,8 @@ var groupsCounter = 3;
 
 export default function DaysCalc(props) {
   const [data, setData] = useState([]);
+  const [htmlData, setHTMLData] = useState([]);
+  
   const [costData, setCostData] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [groupName, setGroupName] = useState("");
@@ -36,6 +38,7 @@ export default function DaysCalc(props) {
       },
       body: JSON.stringify({
         groupName: groupName,
+        type:"Days"
       }),
     })
       .then((res) => res.json())
@@ -53,6 +56,7 @@ export default function DaysCalc(props) {
             data.todos[0].costArray.toString().slice(1, -1).split(",")
           );
           for (var i = 0; i < defCost.length; i++) {
+            console.log("parsing", defCost[i])
             defCost[i] = parseInt(defCost[i]);
           }
           var tempGroupObj = [];
@@ -66,9 +70,14 @@ export default function DaysCalc(props) {
           console.log("cost data", defCost);
           setfullData(returnedData);
           setCostData(defCost);
+          console.log("what is the costData var?", costData)
+          console.log("what are the groups?", groups)
         }
       });
-
+    //trigger rerender
+    setCostData((current) => [...current]);
+    setfullData((current) => [...current]);
+    setGroups((current) => [...current])
     return () => {};
   }, [groupName]);
 
@@ -111,6 +120,14 @@ export default function DaysCalc(props) {
         console.log("returned calculated dat, ", data);
         setData(data);
         setLoading(false);
+        for (var i = 0; i < data.length; i++) {
+          htmlData[i] = fullData[data[i][0]][0].name + "'s group pays " + fullData[data[i][1]][0].name + "'s group: $" + data[i][2];
+          
+        }
+        Swal.fire({
+          title: "Performed Calculation",
+          html: htmlData.join("</br>"),
+        });
       });
   };
 
@@ -127,6 +144,7 @@ export default function DaysCalc(props) {
         dataArray: JSON.stringify(fullData),
         costArray: JSON.stringify(costData),
         groupName: groupName,
+        type:"Days"
       }),
     });
   };
@@ -220,7 +238,7 @@ export default function DaysCalc(props) {
         <button onClick={() => updateDB()}>Save</button>
       </div>
 
-      <div>
+      {/* <div>
         {data.length == 0
           ? ""
           : data.map((dat) => (
@@ -229,7 +247,7 @@ export default function DaysCalc(props) {
                 ${dat[2]}
               </p>
             ))}
-      </div>
+      </div> */}
       <div className={styles.aboutMe}>
         by{" "}
         <a

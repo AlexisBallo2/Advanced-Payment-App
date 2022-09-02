@@ -2,6 +2,7 @@ const knex = require("../../../data/db"); // importing the db config
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
+    console.log("made request")
     console.log(
       "passed data, ",
       req.body.dataArray,
@@ -11,6 +12,7 @@ export default async function handler(req, res) {
     knex("dataTable")
       .select()
       .where("groupName", req.body.groupName)
+      .where("type", req.body.type)
       .then(async function (rows) {
         if (rows.length === 0) {
           // no matching records found
@@ -19,6 +21,7 @@ export default async function handler(req, res) {
               groupName: req.body.groupName,
               dataArray: req.body.dataArray,
               costArray: req.body.costArray,
+              type: req.body.type
             })
             .then(function (result) {
               console.log("made new row", result);
@@ -28,8 +31,9 @@ export default async function handler(req, res) {
             .update({
               dataArray: req.body.dataArray,
               costArray: req.body.costArray,
+              type: req.body.type
             })
-            .where({ groupName: req.body.groupName });
+            .where({ groupName: req.body.groupName , type: req.body.type});
           console.log("updated existing column");
         }
       });

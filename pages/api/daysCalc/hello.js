@@ -71,6 +71,7 @@ function makeCalculation(days, money) {
 
   console.log("fam days array", fam_days_array);
   console.log("total days total", totalDays);
+  console.log("total cost: ", totalCost)
   console.log("daily cost", dailyCost);
   console.log("cost per fam", fam_cost_array);
 

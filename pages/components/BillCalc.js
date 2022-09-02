@@ -42,10 +42,12 @@ export default function BillCalc(props) {
       },
       body: JSON.stringify({
         groupName: groupName,
+        type:"Bill"
       }),
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("billCalc getDBData returns: ", data)
         console.log(data.todos);
         if (data.todos.length == 0) {
         } else {
@@ -139,6 +141,7 @@ export default function BillCalc(props) {
         dataArray: JSON.stringify(fullData),
         groupName: groupName,
         costArray: whoPaidArray,
+        type:"Bill"
       }),
     });
   };
