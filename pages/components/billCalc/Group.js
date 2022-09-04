@@ -28,14 +28,10 @@ export default function Group(props) {
   //add person to group
   const addEntry = (obj) => {
     setGroupItems((current) => [...current, { id: current.length }]);
-    console.log("items", groupItems);
-    console.log("content", content);
   };
 
   //remove person from group
   const removeEntry = () => {
-    console.log("current content", content);
-    console.log("current items", groupItems);
     var tempItems = groupItems;
     tempItems.pop();
     setGroupItems(tempItems);
@@ -53,13 +49,11 @@ export default function Group(props) {
     var currentData = content;
     currentData[data.number] = data.value;
     setContent(currentData);
-    console.log("passing currentData", currentData);
     props.updaterFunction({
       number: props.id,
       value: currentData,
       whoPaid: whoPaid,
     });
-    console.log("content dat", content);
   };
 
   const whoPaidUpdater = (e) => {

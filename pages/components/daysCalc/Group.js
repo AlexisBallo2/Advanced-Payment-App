@@ -6,18 +6,21 @@ var itemCounter = 3;
 
 export default function Group(props) {
   var propsData = props;
-  // console.log("getting data: ", props.data, " with length: ", props.data.length)
+  //items stores the ids
   var [items, setItems] = useState([]);
   var [cost, setCost] = useState(0);
+  //content stores the actual entries/values
+  var [content, setContent] = useState(props.data);
+
   useEffect(() => {
-    console.log("in usestate, ", props)
+    console.log("in usestate, ", props);
     var currentItems = [];
 
     console.log("recieved payment, ", props.payment);
     // if(isNaN(props.payement)){
     //   setCost(0)
     // } else {
-      setCost(props.payment);
+    setCost(props.payment);
 
     // }
 
@@ -31,62 +34,58 @@ export default function Group(props) {
     return () => {};
   }, []);
 
-  var [content, setContent] = useState(props.data);
-
   //add person to group
   const addEntry = () => {
-    // var tempItems = items
-    var tempItem = { id: items.length }
-    var tempItems = items
+    //add a new item to the itemList (index/id stuff)
+    var tempItem = { id: items.length };
+    var tempItems = items;
     tempItems.push(tempItem);
-    setItems(tempItems)
+    setItems(tempItems);
 
-
-    var tempContentItem = { name: "", days: 0 }
-    var tempContent = content
-    tempContent.push(tempContentItem)
-    setContent(tempContent)
-
+    //actually add the new stuff as content
+    var tempContentItem = { name: "", days: 0 };
+    var tempContent = content;
+    tempContent.push(tempContentItem);
+    setContent(tempContent);
 
     //setItems((current) => [...current, tempItem]);
-   // setContent((current) => [...current, tempContent]);
+    // setContent((current) => [...current, tempContent]);
     // console.log("items", items);
     // console.log("content", content);
-    setItems((current) => [...current])
-    setContent((current) => [...current])
-    console.log("changed entries,", items)
-    console.log("changed content, ", content)
+    setItems((current) => [...current]);
+    setContent((current) => [...current]);
+    console.log("changed entries,", items);
+    console.log("changed content, ", content);
   };
 
   //remove person from group
   const removeEntry = () => {
-    console.log("in removeEntry, with ", items)
+    console.log("in removeEntry, with ", items);
 
-    var currentItems = items
-    items.pop()
-    setItems(items)
+    var currentItems = items;
+    items.pop();
+    setItems(items);
 
-    var currentContent = content
-    currentContent.pop()
-    setContent(currentContent)
+    var currentContent = content;
+    currentContent.pop();
+    setContent(currentContent);
 
-   //  var tempItems = items;
-   //  tempItems.pop();
-   //  setItems(tempItems);
+    //  var tempItems = items;
+    //  tempItems.pop();
+    //  setItems(tempItems);
 
-   //  var tempContent = content;
-   //  tempContent.pop();
-   //  setContent(tempContent);
-   //  // setItems((current) =>
-   //  //   current.filter((obj) => {
-   //  //     return obj.id !== current.length - 1;
-   //  //   })
-   // // );
-  setItems((current) => [...current])
-  setContent((current) => [...current])
-  console.log("changed entries,", items)
-  console.log("changed content, ", content)
-
+    //  var tempContent = content;
+    //  tempContent.pop();
+    //  setContent(tempContent);
+    //  // setItems((current) =>
+    //  //   current.filter((obj) => {
+    //  //     return obj.id !== current.length - 1;
+    //  //   })
+    // // );
+    setItems((current) => [...current]);
+    setContent((current) => [...current]);
+    console.log("changed entries,", items);
+    console.log("changed content, ", content);
   };
 
   //update current groups people
@@ -126,11 +125,11 @@ export default function Group(props) {
         {items.map((item) => {
           return (
             <div key={item.id}>
-                <Entry
-                  updater={groupsUpdaterFunction}
-                  number={item.id}
-                  data={props.data[item.id]}
-                />
+              <Entry
+                updater={groupsUpdaterFunction}
+                number={item.id}
+                data={props.data[item.id]}
+              />
             </div>
           );
         })}
