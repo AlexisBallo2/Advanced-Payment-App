@@ -21,6 +21,9 @@
   margin-top: 10px;
 }
 
+.costbuttonHolder button {
+  margin: 1px;
+}
 .costText {
   padding-right: 10px;
 }
