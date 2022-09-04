@@ -18,7 +18,7 @@ export default function DaysCalc(props) {
 
   const [groups, setGroups] = useState([]);
   //all the data -> in the way it will be in the db
-  const [fullData, setfullData] = useState([[]]);
+  const [fullData, setfullData] = useState([]);
 
   //controlling popup onload
   useEffect(() => {
@@ -65,18 +65,23 @@ export default function DaysCalc(props) {
           }
           setGroups(tempGroupObj);
           let returnedCost = JSON.parse(data.todos[0].costArray);
-          console.log("data", returnedData);
-          console.log("cost data", defCost);
           setfullData(returnedData);
           setCostData(defCost);
-          console.log("what is the costData var?", costData);
-          console.log("what are the groups?", groups);
+
+          //trigger rerender
+          setfullData((current) => [...current]);
+          setCostData((current) => [...current]);
+          setCostData((current) => [...current]);
+          setEachGroupsData((current) => [...current]);
+          setGroups((current) => [...current]);
+
+          console.log("recieved data from db and added to states: ");
+          console.log("----- what is the costData var?", costData);
+          console.log("----- what are the groups?", groups);
+          console.log("----- data", returnedData);
+          console.log("----- cost data", defCost);
         }
       });
-    //trigger rerender
-    setCostData((current) => [...current]);
-    setEachGroupsData((current) => [...current]);
-    setGroups((current) => [...current]);
     return () => {};
   }, [groupName]);
 
@@ -166,7 +171,7 @@ export default function DaysCalc(props) {
     setfullData(tempFullData);
 
     // var tempCostData = costData;
-    // tempCostData.push("paid...");
+    // tempCostData[groups.length] = 0;
     // setCostData(tempCostData);
 
     setCostData((current) => [...current]);
@@ -177,8 +182,6 @@ export default function DaysCalc(props) {
   };
 
   const removeGroup = () => {
-    console.log("are we here");
-
     var tempFullData = fullData;
     tempFullData.pop();
     setfullData(tempFullData);
@@ -191,9 +194,9 @@ export default function DaysCalc(props) {
     tempCostArray.pop();
     setCostData(tempCostArray);
 
-    var tempDataArray = eachGroupsData;
-    tempDataArray.pop();
-    setEachGroupsData(tempDataArray);
+    // var tempDataArray = eachGroupsData;
+    // tempDataArray.pop();
+    // setEachGroupsData(tempDataArray);
 
     setCostData((current) => [...current]);
     setEachGroupsData((current) => [...current]);
@@ -202,6 +205,7 @@ export default function DaysCalc(props) {
   };
 
   const updaterFunction = (data) => {
+    console.log("demo of updaterFunciton:", data);
     var currentData = eachGroupsData;
     var currentCostData = costData;
     currentCostData[data.number] = data.cost;

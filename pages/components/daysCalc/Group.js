@@ -15,21 +15,36 @@ export default function Group(props) {
   useEffect(() => {
     console.log("in usestate, ", props);
     var currentItems = [];
+    var currentContent = [];
 
     console.log("recieved payment, ", props.payment);
-    // if(isNaN(props.payement)){
-    //   setCost(0)
-    // } else {
-    setCost(props.payment);
-
-    // }
+    if (isNaN(props.payement)) {
+      setCost(0);
+    } else {
+      setCost(props.payment);
+    }
 
     for (var i = 0; i < props.data.length; i++) {
       var tempObj = { id: i };
       currentItems.push(tempObj);
+
+      var tempContentObj = {
+        name: props.data[i].name,
+        days: props.data[i].days,
+      };
+      currentContent.push(tempContentObj);
     }
+
     setItems(currentItems);
     console.log("Entries items and length: ", items, items.length);
+    setContent(currentContent);
+
+    setCost((current) => current);
+    setItems((current) => [...current]);
+    setContent((current) => [...current]);
+
+    var updaterFunctTempObj = { number: props.id, value: content, cost: cost };
+    props.updaterFunction(updaterFunctTempObj);
 
     return () => {};
   }, []);
@@ -128,7 +143,7 @@ export default function Group(props) {
               <Entry
                 updater={groupsUpdaterFunction}
                 number={item.id}
-                data={props.data[item.id]}
+                data={content[item.id]}
               />
             </div>
           );
