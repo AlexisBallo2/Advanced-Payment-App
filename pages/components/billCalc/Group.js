@@ -6,20 +6,19 @@ var itemCounter = 3;
 
 export default function Group(props) {
   var propsData = props;
-  // console.log("getting data: ", props.data, " with length: ", props.data.length)
-  var [items, setItems] = useState([]);
+  var [groupItems, setGroupItems] = useState([]);
   var [whoPaid, setWhoPaid] = useState("");
   useEffect(() => {
     var currentItems = [];
     console.log("recieved payment, ", props.payment);
-    console.log("current group and length: ", items, items.length);
+    console.log("current group and length: ", groupItems, groupItems.length);
     for (var i = 0; i < props.data.length; i++) {
       var tempObj = { id: i };
       currentItems.push(tempObj);
     }
-    setItems(currentItems);
+    setGroupItems(currentItems);
     setWhoPaid(props.whoPaidArray[props.id]);
-    console.log("new items and length: ", items, items.length);
+    console.log("new items and length: ", groupItems, groupItems.length);
 
     return () => {};
   }, [props.data]);
@@ -28,18 +27,25 @@ export default function Group(props) {
 
   //add person to group
   const addEntry = (obj) => {
-    setItems((current) => [...current, { id: current.length }]);
-    console.log("items", items);
+    setGroupItems((current) => [...current, { id: current.length }]);
+    console.log("items", groupItems);
     console.log("content", content);
   };
 
   //remove person from group
   const removeEntry = () => {
-    setItems((current) =>
-      current.filter((obj) => {
-        return obj.id !== current.length - 1;
-      })
-    );
+    console.log("current content", content);
+    console.log("current items", groupItems);
+    var tempItems = groupItems;
+    tempItems.pop();
+    setGroupItems(tempItems);
+
+    var tempContent = content;
+    tempContent.pop();
+    setContent(tempContent);
+
+    setGroupItems((current) => [...current]);
+    setContent((current) => [...current]);
   };
 
   //update current groups people
@@ -69,7 +75,7 @@ export default function Group(props) {
         <span>Name</span> <span>$$</span>
       </div>
       <div>
-        {items.map((item) => {
+        {groupItems.map((item) => {
           return (
             <div key={item.id}>
               <div>
