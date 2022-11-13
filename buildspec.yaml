@@ -1,37 +1,19 @@
-name: CI
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-  workflow_dispatch:
-
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    if: github.ref == 'refs/heads/master'
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - run: npm ci
-      - run: npm run build
-      - run: npm run test
-
-      - name: rsync deployments
-        uses: alexisballo2/pay
-        with:
-          switches: -avzr --delete
-          path: ./*
-          remote_path: /var/www/my-app/
-          remote_host: 52.90.30.80.compute.amazonaws.com
-          remote_user: ubuntu
-          remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
+phases:
+    install:
+        commands:
+            - echo Installing dependency...
+            - npm install -g next
+            - npm i
+    pre_build:
+        commands:
+            - printenv > .env
+    build:
+        commands:
+            - echo Compiling the Node.js code
+            - next build
+    post_build:
+        commands:
+            - echo Build completed on `date`
+artifacts:
+    files:
+        - "**/*"
